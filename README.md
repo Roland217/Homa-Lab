@@ -1,23 +1,10 @@
 # Active Directory Lab - Step by Step Guide
 
-![Active Directory Lab]([[images/Active%20Directory-Lab.jpg](https://imgur.com/a/J4e20iD)](https://i.imgur.com/9gcuSv2.jpeg))
-## Introduction
+<img src="https://i.imgur.com/9gcuSv2.png" height="80%" width="100%" alt="Active Directory"/>
+
 This guide will walk you through setting up an Active Directory (AD) lab using Oracle VirtualBox, Windows Server 2019, and Windows 10. The lab will include a Domain Controller (DC), a Windows 10 client machine, and a configured network with DHCP, NAT, and Remote Access Service (RAS).
 
-## Step 1 - Preparation
-
-### Download Required Software:
-- [Oracle VirtualBox](https://www.virtualbox.org/) - Download here
-- [VirtualBox Extension Pack](https://www.virtualbox.org/wiki/Downloads) - Download here
-- [Windows 10 ISO](https://www.microsoft.com/en-us/software-download/windows10) - Download here
-- [Windows Server 2019 ISO](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019) - Download here
-
-### Overview:
-Windows Server 2019 will function as the Domain Controller (DC) with Active Directory (AD) installed. It will have two network interfaces:
-- One for Internet access
-- One for internal network communication
-
-## Step 2 - Create Virtual Machine (Domain Controller)
+## Step 1 - Create Virtual Machine (Domain Controller)
 
 1. Open VirtualBox > Click **New**.
 2. Set the following:
@@ -25,10 +12,10 @@ Windows Server 2019 will function as the Domain Controller (DC) with Active Dire
    - **Version**: Other Windows (64-bit)
    - **RAM**: 2048MB
    - **Processors**: 1 or 2
-   - **Hard Disk**: Create a virtual hard disk now > 20GB (25+ GB recommended)
+   - **Hard Disk**: Create a virtual hard disk now > 20GB
 3. Click **Finish**.
    
-![Screenshot](images/Screenshot%202025-03-23%20at%2014.02.44.png)
+<img src="https://i.imgur.com/UBRkRtc.png" height="80%" width="80%" alt="VM"/>
 
 ### Configure Virtual Machine Settings:
 - Go to **Settings > General > Advanced**:
@@ -46,9 +33,7 @@ Windows Server 2019 will function as the Domain Controller (DC) with Active Dire
 4. Wait for the installation to complete.
 5. Set an **Administrator password**.
    
-![OS, Desktop experience](images/OS,%20Desktop%20experience.png)
-
-## Step 3 - Configure Domain Controller (DC)
+## Step 2 - Configure Domain Controller (DC)
 
 ### Install VirtualBox Guest Additions (For better performance):
 1. **Devices > Insert Guest Additions CD Image**.
@@ -69,9 +54,9 @@ Windows Server 2019 will function as the Domain Controller (DC) with Active Dire
 3. Rename the Server:
    - **Settings > System > Rename this PC > DC** > Restart.
 
-## Step 4 - Install and Configure Active Directory (AD DS)
+## Step 3 - Install and Configure Active Directory (AD DS)
 
-![Server Manager](images/Server%20Manager.png)
+<img src="https://i.imgur.com/xvoLo2A.png" height="80%" width="100%" alt="AD"/>
 1. Open **Server Manager** > **Add roles and features**.
 2. Select **Active Directory Domain Services (AD DS)** > **Add Features**.
 3. Complete installation and click **Promote this server to a domain controller**.
@@ -83,7 +68,7 @@ Windows Server 2019 will function as the Domain Controller (DC) with Active Dire
    - **User**: MYDOMAIN\Administrator
    - **Password**: Password1
 
-## Step 5 - Setup DHCP Server on DC
+## Step 4 - Setup DHCP Server on DC
 
 This will allow the client to automatically receive an IP address from the Domain Controller (DC) to connect to the network and access the internet.
 
@@ -97,7 +82,7 @@ This will allow the client to automatically receive an IP address from the Domai
 
 ### Configure DHCP Server:
 
-![Notification Button](images/notification%20button%20.png)
+<img src="https://i.imgur.com/JcAU0yj.png" height="40%" width="40%" alt="dhcp server"/>
 1. In **Server Manager**, click the **Notification Bell** (top-right) > **Complete DHCP Configuration**.
 2. Click **Next > Use AD Credentials** > **Commit** > **Close**.
 
@@ -115,7 +100,7 @@ This will allow the client to automatically receive an IP address from the Domai
 4. **DNS Settings**: Ensure 172.16.0.1 is listed as the DNS Server > **Next**.
 5. **Activate Scope**: Select **Yes, activate now** > **Next > Finish**.
    
-![DHCP](images/DHCP.png)
+<img src="https://i.imgur.com/jB3Ya90.png" height="80%" width="80%" alt="scope"/>
 
 ### Authorize DHCP Server:
 1. In **DHCP Console**, right-click **dc.mydomain.com** > **Authorize**.
@@ -123,7 +108,7 @@ This will allow the client to automatically receive an IP address from the Domai
 3. Expand **IPv4** > Confirm the scope is **Active**.
    - DHCP is now set up, and clients can receive IPs automatically.
 
-## Step 6 - Install & Configure NAT for Internet Access
+## Step 5 - Install & Configure NAT for Internet Access
 
 1. Open **Server Manager > Add Roles and Features**.
 2. Select **Remote Access > Routing** > **Install**.
@@ -132,9 +117,9 @@ This will allow the client to automatically receive an IP address from the Domai
 5. Select **Remote Access** > **Next**.
 6. Select **INTERNET interface** > **Finish**.
    
-![Remote Access](images/remote%20acces.png)
+<img src="https://i.imgur.com/yfGOAUp.png" height="80%" width="80%" alt="remote access"/>
 
-## Step 7 - Create an Admin Account in AD
+## Step 6 - Create an Admin Account in AD
 
 1. Open **Active Directory Users and Computers**.
 2. Create a **New User**:
@@ -146,7 +131,7 @@ This will allow the client to automatically receive an IP address from the Domai
    - Right-click **User** > **Properties** > **Member Of** > **Add**.
    - Enter **Administrators** > **Apply**.
 
-## Step 8 - Configure Windows 10 Client
+## Step 7 - Configure Windows 10 Client
 
 ### Create the VM:
 1. Open **VirtualBox > Click New**.
@@ -173,21 +158,10 @@ This will allow the client to automatically receive an IP address from the Domai
 3. Enter **AdminUser** credentials: MYDOMAIN\AdminUser.
 4. Restart & Login with **Domain Account**.
 
-## Step 9 - Troubleshooting
+## Step 8 - Troubleshooting
 
 ### Common Issues:
 - **No Default Gateway?** Ensure DHCP is assigning 172.16.0.1 in **Server Manager > DHCP**.
 - **Client Cannot Join Domain?** Check DC’s firewall settings and IP configuration.
 - **No Internet on Internal Network?** Ensure **NAT & Routing** are correctly set up in **Routing and Remote Access**.
 - **Cannot Ping 8.8.8.8?** Check **Windows Firewall & NAT Rules**.
-
-## Conclusion
-This lab provides a fully functional Active Directory environment, allowing you to practice user management, group policies, and networking in a controlled virtualized setup.
-
-## Credits
-Guide By **Nicolas Cordischi**
-
-This lab was inspired by Josh Madakor’s Active Directory series. You can check out his tutorials here:
-[Josh Madakor - Active Directory Lab](https://www.youtube.com/watch?v=MHsI8hJmggI&list=PLqBeiU46hx1H--SNfTrohTOWeqkK-M2Y0&ab_channel=JoshMadakor)
-
-Big thanks to Josh for his detailed walkthroughs!
