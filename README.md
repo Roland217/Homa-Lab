@@ -1,8 +1,8 @@
-# Active Directory Lab - Step by Step Guide
+# Active Directory Lab - Lépésről lépésre útmutató
 
 <img src="https://i.imgur.com/9gcuSv2.png" height="80%" width="100%" alt="Active Directory"/>
 
-This guide will walk you through setting up an Active Directory (AD) lab using Oracle VirtualBox, Windows Server 2019, and Windows 10. The lab will include a Domain Controller (DC), a Windows 10 client machine, and a configured network with DHCP, NAT, and Remote Access Service (RAS).
+Ez az útmutató végigvezeti azt, hogy hogyan készítettem el egy Active Directory laboratóriumi környezetet az Oracle VirtualBox, Windows Server 2019 és a Windows 10 felhasználásával. A labor tartalmaz egy tartományvezérlőt (Domain Controller), egy Windows 10-es munkaállomást, valamint egy konfigurált hálózatot DHCP, NAT és távoli hozzáférési szolgáltatás (RAS) használatával
 
 ## Step 1 - Create Virtual Machine (Domain Controller)
 <img src="https://i.imgur.com/LA9XGaG.png" height="80%" width="80%" alt="VM"/>
