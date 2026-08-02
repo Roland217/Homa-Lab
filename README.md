@@ -58,8 +58,8 @@ A DHCP szerepkör telepítése:
 ### DHCP-kiszolgáló konfigurálása:
 
 <img src="https://i.imgur.com/JcAU0yj.png" height="40%" width="40%" alt="dhcp server"/>
-1. <b>Server Manager<b> > <b>Notification Bell<b> (jobb fent) > <b>Complete DHCP Configuration<b>.
-2. <b>Next<b> > <b>Use AD Credentials<b> > <b>Commit<b> > <b>Close<b>.
+<br>1. <b>Server Manager<b> > <b>Notification Bell<b> (jobb fent) > <b>Complete DHCP Configuration<b>.
+2. <b>Next<b> > <b>Use AD Credentials<b> > <b>Commit<b> > <b>Close<b>.<br>
 
 ### Új hatókör létrehozása:
 1. **Server Manager** > **Tools > DHCP**
