@@ -124,7 +124,7 @@ A DHCP szerepkör telepítése:
 1. **Start** > **System** > **Rename this PC** (Speciális beállítások).
 2. **Computer Name** > Domain: mydomain.com.
 3. **a-Droland** referenciák: MYDOMAIN\a-Droland.
-4. Újraindítás és bejelentkezés ezzel:**Droland**.
+4. Újraindítás és bejelentkezés ezzel:**droland**.
 
 <img src="https://i.imgur.com/Nx1gMsq.png" height="80%" width="80%" alt="befejezés"/>
 
