@@ -13,7 +13,7 @@ Ez az útmutató végigvezeti azt, hogy hogyan készítettem el ezt az Active Di
   - **2. adapter**: Belső hálózat
 
 ### Windows Server 2019 telepítése:
-1. A virtuális gépen, kiválasztottam a **Windows Server 2019 ISO**-t, és el végeztem a telepítés
+1. A virtuális gépen, kiválasztottam a **Windows Server 2019 ISO**-t, és elvégeztem a telepítés
 2. A **Windows Server 2019 (Desktop Experience)** verziót választottam.
 
 
