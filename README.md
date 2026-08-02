@@ -111,7 +111,7 @@ A DHCP szerepkör telepítése:
 1. **VirtualBox > New**.
 2. <b>Adatok<b>
    - **Name**: Client
-   - **RAM**: 2048MB
+   - **RAM**: 8192MB
    - **Network**: Internal Network
 
 ### Windows 10 telepítése:
