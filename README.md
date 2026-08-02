@@ -5,22 +5,9 @@
 This guide will walk you through setting up an Active Directory (AD) lab using Oracle VirtualBox, Windows Server 2019, and Windows 10. The lab will include a Domain Controller (DC), a Windows 10 client machine, and a configured network with DHCP, NAT, and Remote Access Service (RAS).
 
 ## Step 1 - Create Virtual Machine (Domain Controller)
-
-1. Open VirtualBox > Click **New**.
-2. Set the following:
-   - **Name**: DC
-   - **Version**: Other Windows (64-bit)
-   - **RAM**: 2048MB
-   - **Processors**: 1 or 2
-   - **Hard Disk**: Create a virtual hard disk now > 20GB
-3. Click **Finish**.
-   
-<img src="https://i.imgur.com/UBRkRtc.png" height="80%" width="80%" alt="VM"/>
+<img src="https://i.imgur.com/LA9XGaG.png" height="80%" width="80%" alt="VM"/>
 
 ### Configure Virtual Machine Settings:
-- Go to **Settings > General > Advanced**:
-  - **Shared Clipboard**: Bidirectional
-  - **Drag and Drop**: Bidirectional
 - Go to **Settings > Network**:
   - **Adapter 1**: NAT (default for internet access)
   - **Adapter 2**: Internal Network
@@ -30,15 +17,8 @@ This guide will walk you through setting up an Active Directory (AD) lab using O
 1. Start the VM, select the **Windows Server 2019 ISO**, and install.
 2. Select **Windows Server 2019 (Desktop Experience)**.
 3. Choose **Custom: Install Windows Only (Advanced)**.
-4. Wait for the installation to complete.
-5. Set an **Administrator password**.
-   
-## Step 2 - Configure Domain Controller (DC)
 
-### Install VirtualBox Guest Additions (For better performance):
-1. **Devices > Insert Guest Additions CD Image**.
-2. Open **This PC > CD Drive (D:) > VBoxWindowsAdditions-amd64**.
-3. Run the installer and restart the system.
+## Step 2 - Configure Domain Controller (DC)
 
 ### Network Configuration:
 1. Rename Network Adapters:
