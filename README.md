@@ -2,146 +2,136 @@
 
 <img src="https://i.imgur.com/9gcuSv2.png" height="80%" width="100%" alt="Active Directory"/>
 
-Ez az útmutató végigvezeti azt, hogy hogyan készítettem el egy Active Directory laboratóriumi környezetet az Oracle VirtualBox, Windows Server 2019 és a Windows 10 felhasználásával. A labor tartalmaz egy tartományvezérlőt (Domain Controller), egy Windows 10-es munkaállomást, valamint egy konfigurált hálózatot DHCP, NAT és távoli hozzáférési szolgáltatás (RAS) használatával
+Ez az útmutató végigvezeti azt, hogy hogyan készítettem el ezt az Active Directory laboratóriumi környezetet az Oracle VirtualBox, Windows Server 2019 és a Windows 10 felhasználásával. A labor tartalmaz egy tartományvezérlőt (Domain Controller), egy Windows 10-es munkaállomást, valamint egy konfigurált hálózatot DHCP, NAT és távoli hozzáférés (RAS) használatával
 
-## Step 1 - Create Virtual Machine (Domain Controller)
+## 1. lépés - Virtuális gép létrehozása
 <img src="https://i.imgur.com/LA9XGaG.png" height="80%" width="80%" alt="VM"/>
 
-### Configure Virtual Machine Settings:
-- Go to **Settings > Network**:
-  - **Adapter 1**: NAT (default for internet access)
-  - **Adapter 2**: Internal Network
-4. Click **OK**.
+### Virtuális gép konfigurálása:
+- A **Beállítások > Hálózat** menüpotban beállítottam az adaptereket:
+  - **1. adapter**: NAT (alapértelmezett az internet-hozzáféréshez)
+  - **2. adapter**: Belső hálózat
 
-### Install Windows Server 2019:
-1. Start the VM, select the **Windows Server 2019 ISO**, and install.
-2. Select **Windows Server 2019 (Desktop Experience)**.
-3. Choose **Custom: Install Windows Only (Advanced)**.
+### Windows Server 2019 telepítése:
+1. A virtuális gépen, kiválasztottam a **Windows Server 2019 ISO**-t, és el végeztem a telepítés
+2. A **Windows Server 2019 (Desktop Experience)** verziót választottam.
 
-## Step 2 - Configure Domain Controller (DC)
 
-### Network Configuration:
-1. Rename Network Adapters:
-   - Open **Network Connections (ncpa.cpl)**.
-   - Identify the internal adapter (APIPA 169.254.x.x address).
-   - Rename it to **_INTERNAL_**.
-   - Rename the internet-facing adapter to **_INTERNET_**.
-2. Assign Static IP (Internal Network Adapter):
-   - **IP Address**: 172.16.0.1
+## 2. lépés - Tartományvezérlő konfigurálása (Domain Controller)
+
+### Hálózati konfiguráció:
+1. Hálózati adapterek átnevezése:
+   - A belső adaptert átneveztem **_INTERNAL_** névre.
+   - Az internet felé néző adaptert pedig **_INTERNET_** névre.
+2. Statikus IP-cím hozzárendelése (belső hálózati adapter):
+   - **IP-cím**: 172.16.0.1
    - **Subnet Mask**: 255.255.255.0
-   - **Gateway**: (leave blank)
    - **DNS**: 127.0.0.1
-3. Rename the Server:
-   - **Settings > System > Rename this PC > DC** > Restart.
+3. Szerver átnevezése:
+   **Beállítások > Rendszer > Számítógép átnevezése > DC**
 
-## Step 3 - Install and Configure Active Directory (AD DS)
+## 3. lépés - Active Directory (AD DS) telepítése és konfigurálása
 
 <img src="https://i.imgur.com/xvoLo2A.png" height="80%" width="100%" alt="AD"/>
-1. Open **Server Manager** > **Add roles and features**.
-2. Select **Active Directory Domain Services (AD DS)** > **Add Features**.
-3. Complete installation and click **Promote this server to a domain controller**.
-4. Create a **New Forest**:
-   - **Root Domain Name**: mydomain.com
-   - Set **DSRM Password**: Password1
-   - Click **Install** and restart.
-5. Login using:
-   - **User**: MYDOMAIN\Administrator
-   - **Password**: Password1
+<br>1. <b>Server Manager<b> > <b>Add roles and features<b> <br>
+<br>2. <b>Active Directory Domain Services (AD DS)<b> > <b>Add Features<b><br>
+<br>3. Befejeztem a telepítést, majd rámentem a <b>Promote this server to a domain controller<b> gombra.<br>
+<br>4. Létrehoztam <b>New Forest<b>:<br>
+  <br> - <b>Root Domain Name<b>: mydomain.com<br>
+  <br> - <b>DSRM-password<b>: Password1<br>
+  <br> - <b>Install<b><br>
+<br>5.Bejelentkezés:<br>
+<br>   - <b>Felhasználó<b>: MYDOMAIN\Administrator<br>
+<br>   - <b>Jelszó<b>: Password1<br>
 
-## Step 4 - Setup DHCP Server on DC
+## 4. lépés - DHCP-kiszolgáló beállítása a DC-n
 
-This will allow the client to automatically receive an IP address from the Domain Controller (DC) to connect to the network and access the internet.
+Ez lehetővé teszi a kliens számára, hogy automatikusan IP-címet kapjon a tartományvezérlőtől (Domain Controller) a hálózathoz való csatlakozáshoz és az internet eléréséhez.
 
-### Install the DHCP Role:
-1. Open **Server Manager**.
-2. Go to **Manage > Add Roles and Features**.
-3. Click **Next** until you reach **Server Roles**.
-4. Select **DHCP Server** > Click **Add Features** when prompted.
-5. Click **Next > Next > Install**.
-6. Wait for the installation to complete, then click **Close**.
+A DHCP szerepkör telepítése:
+<br>1. **Server Manager**.<br>
+<br>2. **Manage > Add Roles and Features**<br>
+<br>3. **Next** > **Server Roles**<br>
+<br>4. **DHCP Server** > **Add Features**<br>
+<br>5. **Install** <br>
 
-### Configure DHCP Server:
+### DHCP-kiszolgáló konfigurálása:
 
 <img src="https://i.imgur.com/JcAU0yj.png" height="40%" width="40%" alt="dhcp server"/>
-1. In **Server Manager**, click the **Notification Bell** (top-right) > **Complete DHCP Configuration**.
-2. Click **Next > Use AD Credentials** > **Commit** > **Close**.
+1. <b>Server Manager<b> > <b>Notification Bell<b> (jobb fent) > <b>Complete DHCP Configuration<b>.
+2. <b>Next<b> > <b>Use AD Credentials<b> > <b>Commit<b> > <b>Close<b>.
 
-### Create a New Scope:
-1. Open **Server Manager** > Go to **Tools > DHCP**.
-2. Expand **dc.mydomain.com** > Right-click **IPv4** > **New Scope** > **Next**.
-   - **Scope Name**: 172.16.0.100-200
-   - **Start IP Address**: 172.16.0.100
-   - **End IP Address**: 172.16.0.200
-   - **Subnet Mask**: 255.255.255.0 (Length: 24)
-   - Click **Next**.
+### Új hatókör létrehozása:
+1. **Server Manager** > **Tools > DHCP**
+2. **dc.mydomain.com** > **IPv4** > **New Scope** > **Next**.
+   - **hatókör neve**: 172.16.0.100-200
+   - **Kezdő IP-cím**: 172.16.0.100
+   - **Vég IP-cím**: 172.16.0.200
+   - **Subnet Mask**: 255.255.255.0
+   - **Next**.
 3. **Router (Default Gateway)**:
-   - **IP Address**: 172.16.0.1
-   - Click **Add** > **Next**.
-4. **DNS Settings**: Ensure 172.16.0.1 is listed as the DNS Server > **Next**.
-5. **Activate Scope**: Select **Yes, activate now** > **Next > Finish**.
+   - **IP-cím**: 172.16.0.1
+   - **Add** > **Next**.
+4. **DNS Settings** > **Next**.
+5. **Activate Scope** > **Yes, activate now** > **Next > Finish**.
    
 <img src="https://i.imgur.com/jB3Ya90.png" height="80%" width="80%" alt="scope"/>
 
-### Authorize DHCP Server:
-1. In **DHCP Console**, right-click **dc.mydomain.com** > **Authorize**.
-2. Right-click again > **Refresh**.
-3. Expand **IPv4** > Confirm the scope is **Active**.
-   - DHCP is now set up, and clients can receive IPs automatically.
+### DHCP-kiszolgáló engedélyezése
+1. **DHCP Console** > **dc.mydomain.com** > **Authorize**.
+2. **Refresh**.
+3. **IPv4** > **Active**.
+   - A DHCP beállítása sikeres volt, és a kliensek automatikusan megkapják az IP-címeket.
 
-## Step 5 - Install & Configure NAT for Internet Access
+## 5. lépés - NAT telepítése és konfigurálása internet-hozzáféréshez
 
-1. Open **Server Manager > Add Roles and Features**.
-2. Select **Remote Access > Routing** > **Install**.
-3. Open **Routing and Remote Access** (Tools > Routing).
-4. Right-click **DC (local)** > **Configure & Enable**.
-5. Select **Remote Access** > **Next**.
-6. Select **INTERNET interface** > **Finish**.
+1. **Server Manager > Add Roles and Features**.
+2. **Remote Access > Routing** > **Install**.
+3. **Routing and Remote Access** (Tools > Routing).
+4. **DC (local)** > **Configure & Enable**.
+5. **Remote Access** > **Next**.
+6. **INTERNET interface** > **Finish**.
    
 <img src="https://i.imgur.com/yfGOAUp.png" height="80%" width="80%" alt="remote access"/>
 
-## Step 6 - Create an Admin Account in AD
+## 6. lépés - Rendszergazdai fiók létrehozása az AD-ben
 
-1. Open **Active Directory Users and Computers**.
-2. Create a **New User**:
-   - **Name**: AdminUser
-   - **Username**: AdminUser
-   - **Password**: Password1 (Change later!)
-   - Set **Password never expires**.
-3. Add to **Administrators Group**:
-   - Right-click **User** > **Properties** > **Member Of** > **Add**.
-   - Enter **Administrators** > **Apply**.
+1. **Active Directory Users and Computers**.
+2. **New User**:
+   - **Name**: Dóka Roland
+   - **Username**: a-Droland
+   - **Password**: Password1
+3. **Administrators Group**:
+   - **Dóka Roland** > **Properties** > **Member Of** > **Add**.
+   - **Domain Admin** > **Apply**.
 
-## Step 7 - Configure Windows 10 Client
+## 7. lépés - Windows 10-es kliens konfigurálása
 
 ### Create the VM:
-1. Open **VirtualBox > Click New**.
-2. Set the following:
+1. **VirtualBox > New**.
+2. <b>Adatok<b>
    - **Name**: Client
    - **RAM**: 2048MB
    - **Network**: Internal Network
-   - Enable **Drag & Drop** and **Shared Clipboard** (Bidirectional).
 
-### Install Windows 10:
-1. Attach **Windows 10 ISO** and start the VM.
-2. Select **Windows 10 Pro** (Home edition cannot join a domain).
-3. Follow installation prompts, but choose:
-   - **Skip internet setup** (use "Limited setup").
-   - **Username**: User (No password).
-4. Open **CMD** (Win + R > **cmd**) and run:
-   - **ipconfig**.
-   - If no default gateway, check **DHCP** config on DC.
-   - Ping **8.8.8.8** to test internet.
+### Windows 10 telepítése:
+1. **Windows 10 ISO** kiválasztása a VM-ben.
+2. **Windows 10 Pro** (A Home kiadás nem csatlakoztatható tartományhoz.).
+   - **Skip internet setup**
+   - **Username**: User (Nincs jelszó).
 
-### Join Domain:
-1. Right-click **Start** > **System** > **Rename this PC** (Advanced settings).
-2. Change Settings > **Computer Name** > Domain: mydomain.com.
-3. Enter **AdminUser** credentials: MYDOMAIN\AdminUser.
-4. Restart & Login with **Domain Account**.
+### Csatlakozás tartományhoz:
+1. **Start** > **System** > **Rename this PC** (Speciális beállítások).
+2. **Computer Name** > Domain: mydomain.com.
+3. **a-Droland** referenciák: MYDOMAIN\a-Droland.
+4. Újraindítás és bejelentkezés ezzel:**Droland**.
 
-## Step 8 - Troubleshooting
+<img src="https://i.imgur.com/Nx1gMsq.png" height="80%" width="80%" alt="befejezés"/>
 
-### Common Issues:
-- **No Default Gateway?** Ensure DHCP is assigning 172.16.0.1 in **Server Manager > DHCP**.
-- **Client Cannot Join Domain?** Check DC’s firewall settings and IP configuration.
-- **No Internet on Internal Network?** Ensure **NAT & Routing** are correctly set up in **Routing and Remote Access**.
-- **Cannot Ping 8.8.8.8?** Check **Windows Firewall & NAT Rules**.
+## 8. lépés - Hibaelhárítás
+
+### Gyakori problémák:
+- **Nincs Default Gateway?** <br>Győződjek meg arról, hogy a DHCP a 172.16.0.1 címet rendeli hozzá a **Server Manager > DHCP** alatt.<br>
+- **Az ügyfél nem tud csatlakozni a domainhez?** <br>Ellenőrizni kell a tartományvezérlő(DC) tűzfalbeállításait és IP-konfigurációját.<br>
+- **Nincs internet a belső hálózaton?** <br>Ellenőrizzem hogy a **NAT & Routing** megfelelően van beállítva a **Routing and Remote Access** szolgáltatásban.<br>
+- **A 8.8.8.8-as cím nem pingelhető?** <br>Ellenőrizzd a **Windows Firewall & NAT Rules** részt.<br>
