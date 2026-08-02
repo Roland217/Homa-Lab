@@ -123,8 +123,8 @@ A DHCP szerepkör telepítése:
 ### Csatlakozás tartományhoz:
 1. **Start** > **System** > **Rename this PC** (Speciális beállítások).
 2. **Computer Name** > Domain: mydomain.com.
-3. **a-Droland** referenciák: MYDOMAIN\a-Droland.
-4. Újraindítás és bejelentkezés ezzel:**droland**.
+3. Engedélyezve az <b>"**a-Droland**"<b> admin fiókról.
+4. Újraindítás és bejelentkezés ezzel: **droland**.
 
 <img src="https://i.imgur.com/Nx1gMsq.png" height="80%" width="80%" alt="befejezés"/>
 
