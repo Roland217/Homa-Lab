@@ -2,7 +2,7 @@
 
 <img src="https://i.imgur.com/9gcuSv2.png" height="80%" width="100%" alt="Active Directory"/>
 
-Ez az útmutató végigvezeti azt, hogy hogyan készítettem el ezt az Active Directory laboratóriumi környezetet az Oracle VirtualBox, Windows Server 2019 és a Windows 10 felhasználásával. A labor tartalmaz egy tartományvezérlőt (Domain Controller), egy Windows 10-es munkaállomást, valamint egy konfigurált hálózatot DHCP, NAT és távoli hozzáférés (RAS) használatával
+Ez az útmutató végigvezeti azt, hogy hogyan készítettem el ezt az Active Directory laboratóriumi környezetet az Oracle VirtualBox, Windows Server 2019 és a Windows 10 felhasználásával. A labor tartalmaz egy tartományvezérlőt (Domain Controller), egy Windows 10-es munkaállomást, valamint egy konfigurált hálózatot DHCP, NAT és Távoli hozzáférési szolgáltatással (RAS) 
 
 ## 1. lépés - Virtuális gép létrehozása
 <img src="https://i.imgur.com/LA9XGaG.png" height="80%" width="80%" alt="VM"/>
